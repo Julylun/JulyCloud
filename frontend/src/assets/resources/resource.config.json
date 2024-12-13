@@ -1,0 +1,8 @@
+{
+    "availableIcons": [
+      "ai", "avi", "bmp", "crd", "csv", "dll", "doc", "docx", "dwg", "eps", "exe",
+      "flv", "gif", "html", "iso", "java", "jpg", "mdb", "mid", "mov", "mp3", "mp4",
+      "mpeg", "pdf", "png", "ppt", "ps", "psd", "pub", "rar", "raw", "rss", "svg",
+      "tiff", "txt", "wav", "wma", "xml", "xsl", "zip"
+    ]
+}
