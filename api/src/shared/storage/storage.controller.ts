@@ -8,11 +8,24 @@ const achiver = require('archiver');
 
 @Controller('api/storage')
 export class StorageController {
+    private startPath: string = null;
+    private configuration: any = null;
+    private logger: Logger = null;
     constructor(
         private readonly storageService: StorageService,
-    ) { }
+    ) {
+        this.logger = new Logger(StorageController.name)
 
-    private logger = new Logger(StorageController.name)
+
+        this.logger.log("Reading configuration file.");
+        this.configuration = storageService.loadStorageConfiguartion();
+
+        this.startPath = this.configuration.controller.storage.rootStorage.toString();
+        this.logger.log('Set default start path to {' + this.startPath  +'}');
+
+       
+    }
+
 
     getListAt(location: string) {
         try {
@@ -35,7 +48,7 @@ export class StorageController {
     @Get()
     async getListFile(@Res() resp: Response) {
         this.logger.debug("getListFile", "Start")
-        let responseData = this.getListAt("D:/");
+        let responseData = this.getListAt(this.startPath);
         resp.statusCode = responseData.statusCode;
         resp.statusMessage = responseData.statusMessage;
         resp.send(responseData);
@@ -128,7 +141,7 @@ export class StorageController {
                 archive.finalize();
 
                 archive.on('close', () => {
-                    this.logger.debug("[downloadFileByToken]","User downloaded this folder");
+                    this.logger.debug("[downloadFileByToken]", "User downloaded this folder");
                 })
 
                 archive.on('error', (err) => {

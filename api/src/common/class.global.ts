@@ -1,3 +1,5 @@
+import { HttpError, StatusCode, StatusMessage } from "./enum.global";
+
 export class ResponseData<T>{
     public data: T;
     public statusCode: number;
@@ -7,6 +9,7 @@ export class ResponseData<T>{
         this.statusCode = statusCode;
         this.statusMessage = statusMessage;
     }
+
 }
 
 export class PathInfo {

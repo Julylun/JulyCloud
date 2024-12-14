@@ -1,1 +1,39 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+yarn.lock
+
+# Build output
+/dist/
+.build/
+public/
+
+# VSCode settings
 .vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Logs
+logs
+*.log
+
+
+# React
+/.next/
+/out/
+/dist/
+
+# NestJS
+/.nestjs/
+/build/

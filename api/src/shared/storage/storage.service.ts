@@ -13,6 +13,17 @@ const SECRET_KEY = "naulnauxgnaohhnanalcognoad"
 export class StorageService {
     private logger = new Logger(StorageService.name)
 
+    loadStorageConfiguartion = () => {
+        try {
+            let configurationData = fs.readFileSync('./src/config/default.config.json').toString();
+            let parsedJson = JSON.parse(configurationData);
+            this.logger.debug("[loadStorageConfiguration](result)",parsedJson);
+            return parsedJson;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
     getFileMimeType = (filePath: string): string => {
         const mimeType = Mime.lookup(filePath) || 'application/octet-stream';
         return mimeType;

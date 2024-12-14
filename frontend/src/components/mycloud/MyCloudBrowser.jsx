@@ -3,6 +3,8 @@ import { ApiConfiguration } from "../../config/api.config";
 import { PopUpItemData } from "./mycloud.class";
 import { MyCloudBrowserContentItemList } from "./mycloud.config";
 import { extensionToIconPath, changeDir, handlePopupItemClick } from "./mycloud.ultils";
+import { ReactComponent as BrowserUploadIcon } from "../../assets/resources/image/browser-upload-icon.svg"
+import { useGesture } from '@use-gesture/react'
 
 
 const MyCloudBrowserPopupItem = ({ buttonName, nextLocation }) => {
@@ -27,8 +29,8 @@ const MyCloudBrowserPopupSplitLine = () => {
 
 const MyCloudBrowserContentUploadButton = () => {
     return (
-        <button>
-
+        <button className="transition-all group absolute bottom-5 right-5 shadow-upload-non rounded-xl size-14 hover:bottom-4 hover:right-4 hover:size-16 flex justify-center items-center bg-White">
+            <BrowserUploadIcon className="transition-all size-8 group-hover:size-10" />
         </button>
     )
 }
@@ -36,6 +38,8 @@ const MyCloudBrowserContentUploadButton = () => {
 const MyCloudBrowserContentItem = ({ Icon, itemName, uploadDate, itemSize, nextLocate }) => {
     const [isVisable, setVisable] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 })
+    const [touchTimeout, setTouchTimeout] = useState(null);
+    let isTouching = false;
 
     const handleClickOutSide = (event) => {
         event.preventDefault()
@@ -47,6 +51,27 @@ const MyCloudBrowserContentItem = ({ Icon, itemName, uploadDate, itemSize, nextL
         setPosition({ x: event.pageX, y: event.pageY });
         setVisable(true);
     }
+
+    const handleTouchStart = (e) => {
+        e.preventDefault();
+        const timeout = setTimeout(() => {
+            isTouching = true;
+        }, 800);
+        setTouchTimeout(timeout);
+    };
+
+    const handleTouchEnd = (e) => {
+        if(isTouching) contextMenuHandle(e);
+        isTouching = false;
+        clearTimeout(touchTimeout);
+    };
+
+    const contextMenuTouchHandle = useGesture(contextMenuHandle, {
+        delay: 800,
+        filterTaps: true,
+        threshold: 10
+    });
+
 
     return (
         //[Pop up menu]
@@ -67,16 +92,23 @@ const MyCloudBrowserContentItem = ({ Icon, itemName, uploadDate, itemSize, nextL
                 </div>
             }
 
-            <button className="w-full bg-transparent flex flex-col hover:bg-SuperLightCyan hover:cursor-pointer" onContextMenu={contextMenuHandle} onClick={() => { changeDir(nextLocate) }}>
+            <button 
+                {...contextMenuTouchHandle()}
+                className="w-full bg-transparent flex flex-col hover:bg-SuperLightCyan hover:cursor-pointer"
+                onContextMenu={contextMenuHandle}
+                onClick={() => { changeDir(nextLocate) }}
+                // onTouchStart={(e) => {handleTouchStart(e)}}
+                // onTouchEnd={(e) => {handleTouchEnd(e)}}
+            >
                 {/* <div className="w-full h-0.125 bg-LightGrey"></div> */}
                 <div className="flex flex-row w-full my-2 text-LightGrey text-xs items-center md:text-sm">
                     <div className="flex flex-row  basis-1/2 overflow-hidden items-center pr-8">
                         {/* {(Icon) ? <Icon className="size-5 aspect-square mr-1 rounded-md md:size-7" /> : <div className="size-5 aspect-square mr-1 rounded-md bg-DarkCyanPastel md:size-7"></div>} */}
                         <img src={Icon} alt={itemName} className="w-5 aspect-auto mr-1 md:w-6 md:mr-4" />
-                        <p className="text-ellipsis whitespace-nowrap overflow-hidden">{itemName}</p>
+                        <p className="select-none text-ellipsis whitespace-nowrap overflow-hidden">{itemName}</p>
                     </div>
-                    <p>{uploadDate}</p>
-                    <p className="ml-auto">{itemSize}</p>
+                    <p className="select-none">{uploadDate}</p>
+                    <p className="select-none ml-auto">{itemSize}</p>
                 </div>
                 <div className="w-full h-0.125 bg-LightGrey"></div>
             </button>
@@ -124,7 +156,7 @@ const MyCloudBrowserContentList = () => {
 
     if (isLoading) return (
         <div className="w-full font-inter min-h-0 flex-1 overflow-y-scroll">
-            <MyCloudBrowserContentItem Icon={null} itemName={"Lemme do it for you~"} uploadDate={"Soon"} itemSize={"@~@"} nextLocate={null} />
+            {/* <MyCloudBrowserContentItem Icon={null} itemName={"Lemme do it for you~"} uploadDate={"Soon"} itemSize={"@~@"} nextLocate={null} /> */}
         </div>
     );
     if (error) return (<h1>Some error occurs, error here: {error}</h1>);
@@ -158,10 +190,12 @@ const MyCloudBrowserContentTitle = () => {
         </div>
     )
 }
+
 const MyCloudBrowserContent = () => {
 
     return (
-        <div className="w-23/24 h-35/36 min-h-0 overflow-y-hidden flex flex-col shadow-3xl rounded-2xl px-3 py-4 bg-White">
+        <div className="w-23/24 h-35/36 min-h-0 overflow-y-hidden flex flex-col shadow-3xl rounded-2xl px-3 py-4 relative bg-White">
+            <MyCloudBrowserContentUploadButton />
             <MyCloudBrowserContentTitle />
             <MyCloudBrowserContentList />
         </div>
