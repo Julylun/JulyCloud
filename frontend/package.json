@@ -12,9 +12,11 @@
     "@types/react-dom": "^19.0.1",
     "@use-gesture/react": "^10.3.1",
     "react": "^19.0.0",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.28.0",
     "react-scripts": "^3.0.1",
+    "serve": "^14.2.4",
     "tailwindcss": "^3.4.16",
     "typescript": "^5.7.2",
     "web-vitals": "^2.1.0"
@@ -22,6 +24,10 @@
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",
+    "build-tailwindcss": "npx tailwindcss -i ./src/assets/css/root.css -o ./src/assets/css/index.css",
+    "build:final": "npx tailwindcss -i ./src/assets/css/root.css -o ./src/assets/css/index.css && react-scripts --openssl-legacy-provider start",
+    "build:final_2": "npx tailwindcss -i ./src/assets/css/root.css -o ./src/assets/css/index.css && react-app-rewired start",
+    "build:final_3": "npx tailwindcss -i ./src/assets/css/root.css -o ./src/assets/css/index.css && react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

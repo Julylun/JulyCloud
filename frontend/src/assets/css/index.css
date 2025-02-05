@@ -561,30 +561,6 @@ video {
   position: relative;
 }
 
-.bottom-3 {
-  bottom: 0.75rem;
-}
-
-.right-3 {
-  right: 0.75rem;
-}
-
-.bottom-4 {
-  bottom: 1rem;
-}
-
-.right-4 {
-  right: 1rem;
-}
-
-.bottom-6 {
-  bottom: 1.5rem;
-}
-
-.right-6 {
-  right: 1.5rem;
-}
-
 .bottom-5 {
   bottom: 1.25rem;
 }
@@ -650,9 +626,9 @@ video {
   aspect-ratio: 1 / 1;
 }
 
-.size-16 {
-  width: 4rem;
-  height: 4rem;
+.size-14 {
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
 .size-4 {
@@ -673,16 +649,6 @@ video {
 .size-8 {
   width: 2rem;
   height: 2rem;
-}
-
-.size-10 {
-  width: 2.5rem;
-  height: 2.5rem;
-}
-
-.size-14 {
-  width: 3.5rem;
-  height: 3.5rem;
 }
 
 .h-0\.125 {
@@ -797,6 +763,11 @@ video {
 
 .basis-1\/2 {
   flex-basis: 50%;
+}
+
+.select-none {
+  -webkit-user-select: none;
+          user-select: none;
 }
 
 .flex-row {
@@ -1011,16 +982,6 @@ video {
   right: 1rem;
 }
 
-.hover\:size-20:hover {
-  width: 5rem;
-  height: 5rem;
-}
-
-.hover\:size-24:hover {
-  width: 6rem;
-  height: 6rem;
-}
-
 .hover\:size-16:hover {
   width: 4rem;
   height: 4rem;
@@ -1038,11 +999,6 @@ video {
 .hover\:bg-SuperLightCyan:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(228 233 232 / var(--tw-bg-opacity, 1));
-}
-
-.group:hover .group-hover\:size-12 {
-  width: 3rem;
-  height: 3rem;
 }
 
 .group:hover .group-hover\:size-10 {

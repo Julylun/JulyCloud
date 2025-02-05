@@ -6,6 +6,7 @@ import { Request, Response } from 'express';
 import { createReadStream } from 'fs';
 const achiver = require('archiver');
 
+
 @Controller('api/storage')
 export class StorageController {
     private startPath: string = null;
@@ -22,6 +23,7 @@ export class StorageController {
 
         this.startPath = this.configuration.controller.storage.rootStorage.toString();
         this.logger.log('Set default start path to {' + this.startPath  +'}');
+
 
        
     }

@@ -1,4 +1,4 @@
 export const ApiConfiguration = {
-    baseUrl: 'http://192.168.1.73',
-    port: 7749
+    baseUrl: process.env.REACT_APP_BACKEND_URL,
+    port: process.env.REACT_APP_BACKEND_PORT
 }

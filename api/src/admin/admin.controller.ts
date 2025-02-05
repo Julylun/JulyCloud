@@ -17,9 +17,9 @@ export class AdminController {
 
 
     //FIXME: [Doing] resolve problem "Can't get data from form data".
-    //TODO: finish changeStorageRoot function
+    //FIXED: Just send data with www-form-urlencoded, bro - JulyLun.
+    //TODO: finish change Storage Root function
     @Post()
-    @UseInterceptors(NoFilesInterceptor)
     changeStorageRoot(@Body() body: any,@Req() request: Request, @Res() response: Response) {
         let responseData: ResponseData<any> = null;
         let newRoot = null;

@@ -3,10 +3,13 @@ import * as fs from 'fs';
 import * as DiskReader from '../../common/node_declare/diskreader/diskreader'
 import { PathInfo } from 'src/common/class.global';
 import path from 'path';
-import * as Jwt from 'jsonwebtoken'
+// import * as Jwt from 'jsonwebtoken'
+// import jwt from 'jsonwebtoken'
 import { match, throws } from 'assert';
 import { HttpError } from 'src/common/enum.global';
 import * as Mime from 'mime-types'
+
+const jwt = require('jsonwebtoken')
 
 const SECRET_KEY = "naulnauxgnaohhnanalcognoad"
 @Injectable()
@@ -38,7 +41,7 @@ export class StorageService {
     }
     getFilePathFromToken = (token: string) => {
         try {
-            const decodedObject = Jwt.verify(token, SECRET_KEY);
+            const decodedObject = jwt.verify(token, SECRET_KEY);
 
             return decodedObject.filePath;
         } catch (error) {
@@ -51,7 +54,7 @@ export class StorageService {
         try {
             const expiredTime = 5 * 60; //5 minutes
 
-            const downloadToken = Jwt.sign(
+            const downloadToken = jwt.sign(
                 { filePath, exp: Math.floor(Date.now() / 1000 + expiredTime) },
                 SECRET_KEY
             );

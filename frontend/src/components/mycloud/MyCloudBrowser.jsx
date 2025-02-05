@@ -127,6 +127,7 @@ const MyCloudBrowserContentList = () => {
         let locate = new URLSearchParams(window.location.search).get('locate');
         let encodedLocateString = encodeURIComponent(locate);
         let targetMainPath = ApiConfiguration.baseUrl + ':' + ApiConfiguration.port;
+        console.log(`be ipadress: ${targetMainPath}`)
         let targetSubPath = '/api/storage' + ((locate != null) ? '/file?locate=' + encodedLocateString : '');
 
         let apiTarget = targetMainPath + targetSubPath;
